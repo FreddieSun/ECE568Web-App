@@ -1,0 +1,7 @@
+Synopsis:
+Given the history stock price, using Bayesian Curve Fitting to predict the future stock price.
+
+
+Test:
+In my java program. I wrote a loop to loop through the ten dataset. For each data set, it first read the CSV file to get the data and store it in the array. Then pass the array to predictData() function and calculate the future stock price. This function will return the precited stock price. variance, absolute mean error and the relative mean error. In this function, you are allowed to input the M which is the highest degree of the polynomial.After several tries,I came up with that M=4 is the best value for this program datasets.  And I assume that beta is 12 alpha is 0.01. Please feel free to modify the beta and alpha and check whether you can get a better result. 
+For each loop, it will print the predicted stock price, predicted stock price within resonable range, actual stock price, absolute mean price, relative mean price.
