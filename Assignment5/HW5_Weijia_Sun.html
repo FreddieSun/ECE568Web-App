@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table,th,td {
+      border: 1px solid black;
+    }
+  </style>
+<title>Homework5</title>
+</head>
+<body>
+
+<h1>This web site will find the volume for a Cylinder,Sphere or Cone</h1>
+
+  <p>Select the units(English or SI)<br></p
+  <form id = "HW5">
+    <input type = "radio" name = "unit" value = "English" onclick = "unitClick(this)" checked> English<br>
+    <input type = "radio" name = "unit" value = "SI" onclick = "unitClick(this)"> SI<br><br>
+    
+    Select the shape
+    <select id = "Shape"  onChange = "shapeClick(this)">
+      <option value = "cone">Cone</option>
+      <option value = "Sphere">Sphere</option>
+      <option value = "Cylinder">Cylinder</option>
+    </select>
+    <br><br>
+
+    Enter the radius
+    <input id = "r" oninput = "radiusInput(this)"></input>
+    <br><br>
+
+    For the cylinder and cone, Enter the height
+    <input id = "h" name = "Height" oninput = "heightInput(this)"></input>
+  </form>
+  
+  <form>
+    <button   onclick = "reset()">reset the forum</button>
+  <br><br>
+  </form>
+
+<h1>Results</h1>
+
+You selected to use <span id="unit_show">English</span> units<br>
+You selected to find the value for a <span id="type_show">cylinder</span> shape<br>
+
+<table style = "width:30%"> 
+  <tr>
+    <th>Shape</th>
+    <th>Radius</th> 
+    <th>Height</th>
+    <th>Volume</th>
+  </tr>
+  <tr>
+    <td> </td>
+    <td>(<span id ="cal_unit1">ft</span>)</td>
+    <td>(<span id ="cal_unit2">ft</span>)</td>
+    <td>(<span id ="cal_unit3">ft</span>^3)</td>
+  </tr>
+  <tr>
+    <td><span id="type_show1">cylinder</span></td>  
+    <td><span id="radius"></span></td>
+    <td><span id="height"></span></td>
+    <td><span id="vol"></span></td>   
+  </tr>
+</table>
+<button  onclick="calculate()">Click to calculate the results</button>
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+function reset() {
+  var x = document.forms["HW5"];
+  x.r.value = "";
+  x.h.value="";
+  obj.selectedIndex=0;
+  document.getElementById('vol').innerHTML="";
+  document.getElementById('radius').innerHTML = "";
+  document.getElementById('height').innerHTML = "";
+  document.getElementById("cal_unit1").innerHTML = "ft";
+  document.getElementById("cal_unit2").innerHTML = "ft";
+  document.getElementById("cal_unit3").innerHTML = "ft";
+  document.getElementById('type_show').innerHTML = "cylinder";
+  document.getElementById('type_show1').innerHTML = "cylinder";
+
+}
+function radiusInput(obj) {
+  document.getElementById('radius').innerHTML = obj.value;
+}
+
+function heightInput(obj) {
+  document.getElementById('height').innerHTML = obj.value;
+}
+
+function shapeClick(obj) {
+  var shape = obj.value;
+  document.getElementById('type_show').innerHTML = shape;
+  document.getElementById('type_show1').innerHTML = shape;
+}
+
+function unitClick(obj) {
+  var unit = obj.value;
+    document.getElementById('unit_show').innerHTML = unit;
+    if (unit == "English") {
+      document.getElementById("cal_unit1").innerHTML = "ft";
+      document.getElementById("cal_unit2").innerHTML = "ft";
+      document.getElementById("cal_unit3").innerHTML = "ft";
+    } else {
+      document.getElementById("cal_unit1").innerHTML = "m";
+      document.getElementById("cal_unit2").innerHTML = "m";
+      document.getElementById("cal_unit3").innerHTML = "m";
+    }
+}
+
+function typeClick(obj) {
+  var index = obj.selectedIndex;
+  var type = obj.options[index].value;
+  document.getElementById('type_show').innerHTML = type;
+  document.getElementById('type_show1').innerHTML = type;
+}
+
+function calculate() {
+  var radius = document.getElementById('r').value;
+  var myselect = document.getElementById('Shape');
+  var index = myselect.selectedIndex;
+  var type = myselect.options[index].text;
+  var height = document.getElementById('h').value;
+  var v;
+  if (radius == "") {
+    window.alert("Please input radius!");
+    return;
+  }
+  if(type == "Cylinder") {
+    if (height == "") {
+      window.alert("Please input height!");
+      return;
+    }
+    v = 3.1415 * radius * radius * height;
+  } else if (type == "Sphere") {
+    v = 4/3 * radius * radius * radius * 3.1415;
+  } else if (type == "Cone") {
+    if (height == "") {
+      window.alert("Please input height!");
+      return;
+    }
+    v = 1/3 * radius * radius * 3.1415 * height;
+  }
+
+  document.getElementById('vol').innerHTML = v;
+  document.getElementById('radius').innerHTML = radius;
+  document.getElementById('height').innerHTML = height;
+}
+</script>
+
