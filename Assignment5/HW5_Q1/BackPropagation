@@ -4,6 +4,22 @@ import random
 
 random.seed(0)
 
+def sigmoid(x):
+    """
+    sigmoid function，1/(1+e^-x)
+    :param x:
+    :return:
+    """
+    return 1.0 / (1.0 + math.exp(-x))
+
+
+def dsigmoid(y):
+    """
+    sigmoid function
+    :param y:
+    :return:
+    """
+    return y * (1 - y)
 
 def randomNum(a, b):
     """
@@ -13,7 +29,6 @@ def randomNum(a, b):
     :return:
     """
     return (b - a) * random.random() + a
-
 
 def constructMatrix(I, J, fill=0.0):
     """
@@ -41,24 +56,6 @@ def randomizeMatrix(matrix, a, b):
             matrix[i][j] = random.uniform(a, b)
 
 
-def sigmoid(x):
-    """
-    sigmoid function，1/(1+e^-x)
-    :param x:
-    :return:
-    """
-    return 1.0 / (1.0 + math.exp(-x))
-
-
-def dsigmoid(y):
-    """
-    sigmoid function
-    :param y:
-    :return:
-    """
-    return y * (1 - y)
-
-
 class NN:
     def __init__(self, ni, nh, no):
         # number of input, hidden, and output nodes
@@ -83,14 +80,14 @@ class NN:
 
         randomizeMatrix(self.wi, -1, 1)
         randomizeMatrix(self.wo, -1, 1)
-        print 'Initial weights:'
+        print "\n" + 'Initial weights:'
         print 'Theta1: '
         for i in range(self.ni):
             print self.wi[i]
         print 'Theta2: '
         for j in range(self.nh):
             print self.wo[j]
-        # 权重矩阵的上次梯度
+
         self.ci = constructMatrix(self.ni, self.nh)
         self.co = constructMatrix(self.nh, self.no)
 
@@ -159,7 +156,6 @@ class NN:
                 self.wi[i][j] += N * change + M * self.ci[i][j]
                 self.ci[i][j] = change
 
-
         error = 0.0
         for k in range(len(targets)):
             error = 0.5 * (targets[k] - self.ao[k]) ** 2
@@ -169,7 +165,7 @@ class NN:
         """
         print the weight
         """
-        print 'Final weights:'
+        print "\n" + 'Final weights:'
         print 'Theta 1: '
         for i in range(self.ni):
             print self.wi[i]
@@ -183,6 +179,7 @@ class NN:
         test
         :param patterns:test
         """
+        print "\n"
         for p in patterns:
             inputs = p[0]
             # print 'Inputs:', p[0], '-->', self.runNN(inputs), '\tTarget', p[1]
@@ -203,14 +200,13 @@ class NN:
                 targets = p[1]
                 self.runNN(inputs)
                 error = self.backPropagate(targets, N, M)
-            if i % 50 == 0:
-                if i == 0:
-                    print 'first-batch error    ', error
-                else:
-                    print 'error(every 50 train)', error
+
+            if i == 0:
+                print "\n" + 'first-batch error    ', error
+
             if error < expectedError:
-                print 'final error          ', error
-                print 'total number of batches run through in train', i + 1, 'times'
+                print "\n" + 'final error          ', error
+                print "\n" + 'the total number of batches run through in the training', i + 1
                 break
         self.test(patterns)
 
