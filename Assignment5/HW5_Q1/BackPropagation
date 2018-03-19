@@ -185,7 +185,7 @@ class NN:
             # print 'Inputs:', p[0], '-->', self.runNN(inputs), '\tTarget', p[1]
             print 'Inputs:', p[0], '-->', self.runNN(inputs), 'Target'.rjust(10), p[1]
 
-    def train(self, patterns, max_iterations=1000, N=0.5, M=0.1):
+    def train(self, patterns, max_iterations=1000, N=0.5, M=0.5):
         """
         train
         :param patterns: the batch
@@ -193,7 +193,9 @@ class NN:
         :param N: learning rate
         :param M: last time learning rate
         """
+
         N = learningRate
+        M = N / 2
         for i in range(max_iterations):
             for p in patterns:
                 inputs = p[0]
@@ -208,7 +210,7 @@ class NN:
                 print "\n" + 'final error          ', error
                 print "\n" + 'the total number of batches run through in the training', i + 1
                 break
-        self.test(patterns)
+        #self.test(patterns)
 
 
 def main():
@@ -220,8 +222,8 @@ def main():
     ]
     global expectedError
     global learningRate
-    expectedError = input('Please input the expected error: ')
-    learningRate = input('Please input the learning rate: ')
+    expectedError = float(input('Please input the expected error: '))
+    learningRate = float(input('Please input the learning rate: '))
     myNN = NN(2, 2, 1)
     myNN.train(pat)
     myNN.weights()
