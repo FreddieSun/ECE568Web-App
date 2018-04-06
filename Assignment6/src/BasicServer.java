@@ -23,16 +23,32 @@ public class BasicServer {
             System.out.println("\nWaiting for client to connect...");
             try {
                 Socket s_sock = rv_sock.accept();
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(s_sock.getInputStream())
-                );
-                PrintWriter out = new PrintWriter(
-                        new OutputStreamWriter(s_sock.getOutputStream()),
-                        true);
-                System.out.println(
-                        "Client's message: " + in.readLine());
-                out.println("I got your message");
+
+                boolean flag = true;
+                while (flag) {
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(s_sock.getInputStream())
+                    );
+                    PrintWriter out = new PrintWriter(
+                            new OutputStreamWriter(s_sock.getOutputStream()),
+                            true);
+                    String input = in.readLine();
+                    if (input == null || "".equals(input)) {
+                        flag = false;
+                    } else {
+                        if ("EXIT".equals(input)) {
+                            flag = false;
+                        } else {
+                            // todo
+                            System.out.println(
+                                    "Client's message: " + input);
+                            out.println("I got your message");
+
+                        }
+                    }
+                }
                 s_sock.close();
+                break;
             } catch (IOException ex) { ex.printStackTrace(); }
         }
     }

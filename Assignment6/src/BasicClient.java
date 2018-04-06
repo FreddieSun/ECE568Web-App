@@ -16,19 +16,33 @@ public class BasicClient {
 
         try {
             Socket c_sock = new Socket(args[0], port_num);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(c_sock.getInputStream())
-            );
-            PrintWriter out = new PrintWriter(
-                    new OutputStreamWriter(c_sock.getOutputStream()),
-                    true);
-            BufferedReader userEntry = new BufferedReader(
-                    new InputStreamReader(System.in)
-            );
-            System.out.print("User, enter your message: ");
-            out.println(userEntry.readLine());
-            System.out.println("Server says: " + in.readLine());
-            c_sock.close();
+
+            boolean flag = true;
+            while (flag) {
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(c_sock.getInputStream())
+                );
+                PrintWriter out = new PrintWriter(
+                        new OutputStreamWriter(c_sock.getOutputStream()),
+                        true);
+                BufferedReader userEntry = new BufferedReader(
+                        new InputStreamReader(System.in)
+                );
+                System.out.print("User, enter your message: ");
+                String input = userEntry.readLine();
+                out.println(input);
+//                if ("EXIT".equals(input)) {
+//                    flag = false;
+//                } else {
+//                    // todo
+//                    System.out.println("Server says: " + in.readLine());
+//                }
+                //System.out.println("Server says: " + in.readLine());
+            }
+            //userEntry.close();
+            if (c_sock != null) {
+                c_sock.close();
+            }
         } catch (IOException ex) { ex.printStackTrace(); }
         System.exit(0);
     }
