@@ -40,18 +40,27 @@ public class BasicServer {
                         } else {
                             if (input.length() <= 5) {
                                 System.out.println("Error: " + "No Such Command");
+                                out.println("Error: " + "No Such Command");
                             } else if (input.length() > 3 && input.substring(0,3).equals("GET")) {
+                                // 如果是GET方法，读取content并在server端打印content内容
                                 String fileName = input.substring(4, input.length() - 1);
                                 File file =
                                         new File(fileName);
-                                Scanner sc = new Scanner(file);
-                                out.println("read the : " + fileName);
-                                while (sc.hasNextLine())
-                                    System.out.println(sc.nextLine());
+                                if (file.exists()) {
+                                    Scanner sc = new Scanner(file);
+                                    out.println("read the : " + fileName);
+                                    while (sc.hasNextLine())
+                                        System.out.println(sc.nextLine());
+                                } else {
+                                    System.out.println("Error: File doesn't exist");
+                                    out.println("Error: File doesn't exist");
+                                }
+
                             } else if (input.substring(0,6).equals("BOUNCE")) {
+                                // Client input BOUNCE <Hello World>  Server output: Hello World
                                 System.out.println(
-                                        "Client's message: " + input);
-                                out.println("echo: " + input);
+                                        "Client's message: " + input.substring(7,input.length() - 1));
+                                out.println("echo: " + input.substring(7,input.length() - 1));
                             } else if (input.substring(0,4).equals("EXIT")) {
                                 System.out.println("Exit Code" + input.substring(5, input.length() - 1));
                             } else {
