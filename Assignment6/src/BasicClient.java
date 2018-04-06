@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.regex.Pattern;
 
 public class BasicClient {
     public static void main(String[] args) {
@@ -31,7 +32,18 @@ public class BasicClient {
                 System.out.print("User, enter your message: ");
                 String input = userEntry.readLine();
 
-                out.println(input);
+
+                String pattern = "\\b(GET|BOUNCE|EXIT)\\b<.*>|\\bEXIT\\b";
+
+                boolean isMatch = Pattern.matches(pattern, input);
+                if (isMatch) {
+                    out.println(input);
+                } else {
+                    System.out.println("Error: Illegal Input");
+                    continue;
+                }
+
+
                 // 如果是EXIT，两端都退出程序
                 if (input.length() >= 4 && "EXIT".equals(input.substring(0,4))) {
                     flag = false;

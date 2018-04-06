@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 
 public class BasicServer {
@@ -24,10 +25,9 @@ public class BasicServer {
                 boolean flag = true;
                 while (flag) {
 
-
-                    if (s_sock.getInputStream().available() != 0) {
-
-                    }
+//                    if (s_sock.getInputStream().available() == 0) {
+//                        break;
+//                    }
 
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(s_sock.getInputStream())
@@ -81,7 +81,10 @@ public class BasicServer {
                 }
                 s_sock.close();
                 break;
+            } catch (SocketException e) {
+                e.printStackTrace();
             } catch (IOException ex) { ex.printStackTrace(); }
+
         }
     }
 }
