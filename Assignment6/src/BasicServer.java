@@ -1,10 +1,7 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class BasicServer {
     public static void main(String[] args) throws IOException {
@@ -34,17 +31,36 @@ public class BasicServer {
                             true);
                     String input = in.readLine();
                     if (input == null || "".equals(input)) {
-                        flag = false;
+                        System.out.println("Please input the command");
+                        out.println("Please input the command");
                     } else {
                         if ("EXIT".equals(input)) {
-                            flag = false;
+                            System.out.println("The connection has ended");
+                            out.println("The connection has ended");
                         } else {
-                            // todo
-                            System.out.println(
-                                    "Client's message: " + input);
-                            out.println("I got your message");
-
+                            if (input.length() <= 5) {
+                                System.out.println("Error: " + "No Such Command");
+                            } else if (input.length() > 3 && input.substring(0,3).equals("GET")) {
+                                String fileName = input.substring(4, input.length() - 1);
+                                File file =
+                                        new File(fileName);
+                                Scanner sc = new Scanner(file);
+                                out.println("read the : " + fileName);
+                                while (sc.hasNextLine())
+                                    System.out.println(sc.nextLine());
+                            } else if (input.substring(0,6).equals("BOUNCE")) {
+                                System.out.println(
+                                        "Client's message: " + input);
+                                out.println("echo: " + input);
+                            } else if (input.substring(0,4).equals("EXIT")) {
+                                System.out.println("Exit Code" + input.substring(5, input.length() - 1));
+                            } else {
+                                // todo
+                                System.out.println("Error: " + "No Such Command!");
+                                out.println("No Such Command!");
+                            }
                         }
+
                     }
                 }
                 s_sock.close();

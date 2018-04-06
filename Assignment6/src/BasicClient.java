@@ -30,16 +30,17 @@ public class BasicClient {
                 );
                 System.out.print("User, enter your message: ");
                 String input = userEntry.readLine();
+
                 out.println(input);
-//                if ("EXIT".equals(input)) {
-//                    flag = false;
-//                } else {
-//                    // todo
-//                    System.out.println("Server says: " + in.readLine());
-//                }
-                //System.out.println("Server says: " + in.readLine());
+                // 如果是EXIT，两端都退出程序
+                if ("EXIT".equals(input)) {
+                    flag = false;
+                } else {
+
+                    // 收到服务器端的响应并打印出来
+                    System.out.println("Server says: " + in.readLine());
+                }
             }
-            //userEntry.close();
             if (c_sock != null) {
                 c_sock.close();
             }
