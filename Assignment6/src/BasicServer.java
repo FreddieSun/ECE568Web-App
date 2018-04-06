@@ -23,6 +23,12 @@ public class BasicServer {
 
                 boolean flag = true;
                 while (flag) {
+
+
+                    if (s_sock.getInputStream().available() != 0) {
+
+                    }
+
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(s_sock.getInputStream())
                     );
@@ -30,13 +36,14 @@ public class BasicServer {
                             new OutputStreamWriter(s_sock.getOutputStream()),
                             true);
                     String input = in.readLine();
+
                     if (input == null || "".equals(input)) {
                         System.out.println("Please input the command");
                         out.println("Please input the command");
                     } else {
                         if ("EXIT".equals(input)) {
-                            System.out.println("The connection has ended");
-                            out.println("The connection has ended");
+                            System.out.println("Normal Exit: The connection has ended");
+                            out.println("Normal Exit: The connection has ended");
                         } else {
                             if (input.length() <= 5) {
                                 System.out.println("Error: " + "No Such Command");
@@ -62,9 +69,9 @@ public class BasicServer {
                                         "Client's message: " + input.substring(7,input.length() - 1));
                                 out.println("echo: " + input.substring(7,input.length() - 1));
                             } else if (input.substring(0,4).equals("EXIT")) {
-                                System.out.println("Exit Code" + input.substring(5, input.length() - 1));
+                                System.out.println("The connection has ended with code: " + input.substring(5, input.length() - 1));
+                                out.println("The connection has ended with code: " + input.substring(5, input.length() - 1));
                             } else {
-                                // todo
                                 System.out.println("Error: " + "No Such Command!");
                                 out.println("No Such Command!");
                             }
