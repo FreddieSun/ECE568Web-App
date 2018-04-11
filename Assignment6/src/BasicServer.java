@@ -22,12 +22,10 @@ public class BasicServer {
             try {
                 Socket s_sock = rv_sock.accept();
 
-                boolean flag = true;
-                while (flag) {
 
-//                    if (s_sock.getInputStream().available() == 0) {
-//                        break;
-//                    }
+                while (true) {
+
+
 
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(s_sock.getInputStream())
@@ -44,6 +42,7 @@ public class BasicServer {
                         if ("EXIT".equals(input)) {
                             System.out.println("Normal Exit: The connection has ended");
                             out.println("Normal Exit: The connection has ended");
+                            break;
                         } else {
                             if (input.length() <= 5) {
                                 System.out.println("Error: " + "No Such Command");
@@ -80,7 +79,7 @@ public class BasicServer {
                     }
                 }
                 s_sock.close();
-                break;
+
             } catch (SocketException e) {
                 e.printStackTrace();
             } catch (IOException ex) { ex.printStackTrace(); }
