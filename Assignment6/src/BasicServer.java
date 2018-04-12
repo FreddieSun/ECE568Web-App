@@ -25,8 +25,6 @@ public class BasicServer {
 
                 while (true) {
 
-
-
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(s_sock.getInputStream())
                     );

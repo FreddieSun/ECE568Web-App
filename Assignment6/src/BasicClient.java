@@ -44,11 +44,11 @@ public class BasicClient {
                 }
 
 
-                // 如果是EXIT，两端都退出程序
+
                 if (input.length() >= 4 && "EXIT".equals(input.substring(0,4))) {
                     flag = false;
                 } else {
-                    // 收到服务器端的响应并打印出来
+
                     System.out.println("Server says: " + in.readLine());
                 }
             }
