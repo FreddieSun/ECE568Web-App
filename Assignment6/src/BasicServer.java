@@ -68,6 +68,7 @@ public class BasicServer {
                             } else if (input.substring(0,4).equals("EXIT")) {
                                 System.out.println("The connection has ended with code: " + input.substring(5, input.length() - 1));
                                 out.println("The connection has ended with code: " + input.substring(5, input.length() - 1));
+                                break;
                             } else {
                                 System.out.println("Error: " + "No Such Command!");
                                 out.println("No Such Command!");
